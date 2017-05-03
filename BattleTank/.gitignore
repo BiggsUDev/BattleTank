@@ -1,3 +1,9 @@
+# VisualStudio Generated Files
+*.VC.db*
+*.ipch
+ipch/
+*.VC.VC.opendb
+
 # Visual Studio 2015 user specific files
 .vs/
 
