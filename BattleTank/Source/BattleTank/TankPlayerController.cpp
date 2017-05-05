@@ -3,7 +3,6 @@
 #include "BattleTank.h"
 #include "TankPlayerController.h"
 
-
 ATank* ATankPlayerController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
@@ -12,7 +11,6 @@ ATank* ATankPlayerController::GetControlledTank() const
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
 
 	auto* ControlledTank = this->GetControlledTank();
 
