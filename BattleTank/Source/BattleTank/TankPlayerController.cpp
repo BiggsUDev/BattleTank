@@ -16,11 +16,11 @@ void ATankPlayerController::BeginPlay()
 
 	if (ControlledTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("GetControlledTank found a tank %s"), *ControlledTank->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("TankPlayerController possessing: %s"), *ControlledTank->GetName());
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("GetControlledTank failed to find tank"));
+		UE_LOG(LogTemp, Warning, TEXT("TankPlayerController failed to possess a tank"));
 	}
 	
 }
