@@ -21,6 +21,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	float CrosshairYLocation = 0.33f;
 
+	UPROPERTY(EditAnywhere)
+	float LineTraceRange = 1000000.f;
+
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
@@ -28,11 +31,6 @@ private:
 	virtual void AimTowardsCrosshair();
 
 	virtual bool GetSightRayHitLocation(FVector& HitLocation);
-
-	virtual FVector GetPlayerViewPointReach() const;
-	
-	// Find the crosshair position using the CrosshariXLocation and CrosshairYLocation
-	virtual FVector2D ScreenLocation() const;
 
 public:
 	virtual ATank* GetControlledTank() const;
