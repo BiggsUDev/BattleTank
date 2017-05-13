@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleTank.h"
+#include "Tank.h"
 #include "TankPlayerController.h"
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -36,16 +37,13 @@ void ATankPlayerController::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
 
-	FVector HitLocation = FVector(1,1,1); // Out parameter
-	
-	if(GetSightRayHitLocation(HitLocation))
-	{
-		GetControlledTank()->AimAt(HitLocation);
-	}	
+	FVector HitLocation = FVector(0,0,0); // Out parameter
 
-	// Get world location of linetrace through crosshair
-	// If it hits the landscape
-		// Tell the controlled tank to aim at this point
+	// Returns true if the crosshair hit something solid
+	GetSightRayHitLocation(HitLocation);
+
+	// Tells the tank to aim regardless if hit location is true
+	GetControlledTank()->AimAt(HitLocation);
 
 	return;
 }
