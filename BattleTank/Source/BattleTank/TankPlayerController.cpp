@@ -19,7 +19,7 @@ void ATankPlayerController::BeginPlay()
 	auto* ControlledTank = this->GetControlledTank();
 	if (ControlledTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("TankPlayerController possessing: %s"), *ControlledTank->GetName());
+		// UE_LOG(LogTemp, Warning, TEXT("TankPlayerController possessing: %s"), *ControlledTank->GetName());
 	}
 	else
 	{
@@ -40,7 +40,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	
 	if(GetSightRayHitLocation(HitLocation))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("ScreenLocation(): %s"), *HitLocation.ToString());
+		GetControlledTank()->AimAt(HitLocation);
 	}	
 
 	// Get world location of linetrace through crosshair
@@ -91,3 +91,5 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation)
 
 	return result;
 }
+
+
