@@ -2,6 +2,7 @@
 
 #include "BattleTank.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 
 
@@ -18,6 +19,11 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 	Barrel = BarrelToSet;
 }
 
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
+{
+	Turret = TurretToSet;
+}
+
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
 	// Only gets called by tank player controller if the crosshair linetrace hits something
@@ -26,6 +32,12 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	{ 
 		UE_LOG(LogTemp, Warning, TEXT("Barrel is invalid"));
 		return;  
+	}
+
+	if (!Turret)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Turret is invalid"));
+		return;
 	}
 
 	FVector OutLaunchVelocity;
@@ -47,28 +59,33 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 	if (bHaveAimSolution)
 	{
+		// These two variables are used in turret and barrel aiming
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-
-		//MoveBarrelTowards(FVector AimDirection);
-		auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 		auto AimAsRotator = AimDirection.Rotation();
 
+		//MoveBarrelTowards(FVector AimDirection);
+		auto BarrelRotator = Barrel->GetForwardVector().Rotation();		
 		//Work-out the difference between current barrel rotation and AimDirection
 		auto DeltaRotator = AimAsRotator - BarrelRotator;
+		Barrel->Elevate(DeltaRotator.Pitch); 
 
-		Barrel->Elevate(DeltaRotator.Pitch); // TODO remove magic number
+		//MoveTurretTowards(FVector AimDirection) 
+		//Turn the turret towards AimDirection
+		auto TurretRotator = Turret->GetForwardVector().Rotation();
+		DeltaRotator = AimAsRotator - TurretRotator;
+		Turret->Rotate(DeltaRotator.Yaw);
 
 		// Log useful info
-		auto TankName = this->GetOwner()->GetName();
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: %s Aim solution found: %s"), Time, *TankName, *AimDirection.ToString());
+		//auto TankName = this->GetOwner()->GetName();
+		//auto Time = GetWorld()->GetTimeSeconds();
+		//UE_LOG(LogTemp, Warning, TEXT("%f: %s Aim solution found: %s"), Time, *TankName, *AimDirection.ToString());
 
 	}
 	else
 	{
 		// Log useful info
-		auto TankName = this->GetOwner()->GetName();
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: %s No Aim sol"), Time, *TankName);
+		//auto TankName = this->GetOwner()->GetName();
+		//auto Time = GetWorld()->GetTimeSeconds();
+		//UE_LOG(LogTemp, Warning, TEXT("%f: %s No Aim sol"), Time, *TankName);
 	}
 }
