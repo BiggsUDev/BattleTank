@@ -31,9 +31,6 @@ public:
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
-	UPROPERTY(BlueprintReadOnly)
-	UTankMovementComponent* TankMovementComponent = nullptr;
-
 private:	
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint; //  https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf/
