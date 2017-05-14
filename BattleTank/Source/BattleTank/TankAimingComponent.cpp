@@ -26,19 +26,9 @@ void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	// Only gets called by tank player controller if the crosshair linetrace hits something
-	// Otherwise the tank barrel will not be told to elevate or lower
-	if (!Barrel) 
-	{ 
-		UE_LOG(LogTemp, Warning, TEXT("UTankAimingComponent::Barrel is invalid"));
-		return;  
-	}
-
-	if (!Turret)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("UTankAimingComponent::Turret is invalid"));
-		return;
-	}
+	// If we don't have a barrel or turret, log it and exit this function
+	if (!Barrel) { 	UE_LOG(LogTemp, Warning, TEXT("UTankAimingComponent::Barrel is invalid"));	return; }
+	if (!Turret) { 	UE_LOG(LogTemp, Warning, TEXT("UTankAimingComponent::Turret is invalid"));	return; }
 
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -69,13 +59,5 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		auto DeltaRotator = AimAsRotator - BarrelRotator;
 		Barrel->Elevate(DeltaRotator.Pitch); 
 		Turret->Rotate(DeltaRotator.Yaw);
-	}
-	else
-	{
-		// No Aim Solution Found
-		//auto TankName = this->GetOwner()->GetName();
-		//auto Time = GetWorld()->GetTimeSeconds();
-		//UE_LOG(LogTemp, Warning, TEXT("%f: %s No Aim sol"), Time, *TankName);
-
 	}
 }
