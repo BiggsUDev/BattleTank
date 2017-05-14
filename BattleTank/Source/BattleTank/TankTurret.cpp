@@ -13,15 +13,8 @@ void UTankTurret::Rotate(float RelativeSpeed)
 
 
 	auto NewRotate = RelativeRotation.Yaw + RotateChange;
-	UE_LOG(LogTemp, Warning, TEXT("RotateChange %f"), RotateChange);
-	//NewRotate = FMath::Clamp<float>(NewRotate, MinElevationDegrees, MaxElevationDegrees);
 
-	SetRelativeRotation(FRotator(0, NewRotate, 0));
-
-	//auto TankName = this->GetOwner()->GetName();
-	//auto Time = GetWorld()->GetTimeSeconds();
-	//UE_LOG(LogTemp, Warning, TEXT("%f: %s Aim solution found: %f"), Time, *TankName, *NewRotate);
-	
+	SetRelativeRotation(FRotator(0, NewRotate, 0));	
 }
 
 

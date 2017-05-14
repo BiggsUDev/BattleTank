@@ -24,7 +24,7 @@ void ATankPlayerController::BeginPlay()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("TankPlayerController failed to possess a tank"));
+		UE_LOG(LogTemp, Error, TEXT("TankPlayerController failed to possess a tank"));
 	}	
 }
 
@@ -37,12 +37,12 @@ void ATankPlayerController::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
 
-	FVector HitLocation = FVector(0,0,0); // Out parameter
+	FVector HitLocation = FVector(0,0,0); // Default aim orientation
 
 	// Returns true if the crosshair hit something solid
-	GetSightRayHitLocation(HitLocation);
+	auto HitSuccess = GetSightRayHitLocation(HitLocation);
 
-	// Tells the tank to aim regardless if hit location is true
+	// Tells the tank to aim regardless if HitSuccess is true
 	GetControlledTank()->AimAt(HitLocation);
 
 	return;
@@ -53,12 +53,11 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation)
 	// Find the crosshair position
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
-	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshariXLocation, ViewportSizeY * CrosshairYLocation);
+	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
 
 	// "De-project" the screen position of the crosshair to a world direction	
 	FVector WorldLocation;
 	FVector LookDirection;
-
 	DeprojectScreenPositionToWorld(
 		ScreenLocation.X, 
 		ScreenLocation.Y, 

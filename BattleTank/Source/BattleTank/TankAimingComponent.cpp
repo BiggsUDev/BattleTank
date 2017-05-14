@@ -30,13 +30,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	// Otherwise the tank barrel will not be told to elevate or lower
 	if (!Barrel) 
 	{ 
-		UE_LOG(LogTemp, Warning, TEXT("Barrel is invalid"));
+		UE_LOG(LogTemp, Warning, TEXT("UTankAimingComponent::Barrel is invalid"));
 		return;  
 	}
 
 	if (!Turret)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Turret is invalid"));
+		UE_LOG(LogTemp, Warning, TEXT("UTankAimingComponent::Turret is invalid"));
 		return;
 	}
 
@@ -69,18 +69,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		auto DeltaRotator = AimAsRotator - BarrelRotator;
 		Barrel->Elevate(DeltaRotator.Pitch); 
 		Turret->Rotate(DeltaRotator.Yaw);
-
-		// Log useful info
-		//auto TankName = this->GetOwner()->GetName();
-		//auto Time = GetWorld()->GetTimeSeconds();
-		//UE_LOG(LogTemp, Warning, TEXT("%f: %s Aim solution found: %s"), Time, *TankName, *AimDirection.ToString());
-
 	}
 	else
 	{
-		// Log useful info
+		// No Aim Solution Found
 		//auto TankName = this->GetOwner()->GetName();
 		//auto Time = GetWorld()->GetTimeSeconds();
 		//UE_LOG(LogTemp, Warning, TEXT("%f: %s No Aim sol"), Time, *TankName);
+
 	}
 }

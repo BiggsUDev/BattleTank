@@ -17,7 +17,7 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	
 private:
 	UPROPERTY(EditAnywhere)
-	float CrosshariXLocation = 0.5f;
+	float CrosshairXLocation = 0.5f;
 
 	UPROPERTY(EditAnywhere)
 	float CrosshairYLocation = 0.33f;
