@@ -14,7 +14,11 @@ UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
+
+public:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	virtual ATank* GetControlledTank() const;
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairXLocation = 0.5f;
@@ -33,7 +37,6 @@ private:
 
 	virtual bool GetSightRayHitLocation(FVector& HitLocation);
 
-public:
-	virtual ATank* GetControlledTank() const;
+
 
 };
