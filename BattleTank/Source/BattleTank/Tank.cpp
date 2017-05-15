@@ -19,6 +19,13 @@ void ATank::AimAt(FVector HitLocation)
 	//TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
+void ATank::BeginPlay()
+{
+	// Super?
+
+	UE_LOG(LogTemp, Warning, TEXT("BIGGS Tank.cpp BeginPlay() C++"))
+}
+
 void ATank::Fire()
 {
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;

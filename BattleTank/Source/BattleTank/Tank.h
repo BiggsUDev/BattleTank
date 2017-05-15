@@ -32,6 +32,8 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeInSeconds = 3;
 
+	void BeginPlay() override;
+
 	// Sets default values for this pawn's properties
 	ATank();	
 
