@@ -29,13 +29,13 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000.f;
 
-	virtual void BeginPlay() override;
+	void BeginPlay() override;
 
-	virtual void Tick(float DeltaTime) override;
+	void Tick(float DeltaTime) override;
 	
-	virtual void AimTowardsCrosshair();
+	void AimTowardsCrosshair();
 
-	virtual bool GetSightRayHitLocation(FVector& HitLocation);
+	bool GetSightRayHitLocation(FVector& HitLocation);
 
 
 
